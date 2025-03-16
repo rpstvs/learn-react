@@ -95,3 +95,13 @@
     color: #ff0f07;
     text-align:center;
 }
+
+@media (max-width:900px){
+    .table-layout{
+        grid-template-columns: 0.5fr 2fr 1fr 1fr;
+    }
+
+    .market-cap{
+        display: none;
+    }
+}
