@@ -3,34 +3,64 @@ import './Coin.css'
 import { useParams } from "react-router-dom";
 import { CoinContext } from "../../context/CoinContext";
 import {resp} from "./reps.js"
+import LineChart from "../../components/LineChart/LineChart.jsx";
 
 
 
 const Coin = () =>{
- 
+    const {allCoin, currency} = useContext(CoinContext)
     const {coinId} = useParams();
     const [coinData, setCoinData] = useState();
+    const [history, setHistory] = useState();
     
 
     const fetchCoinData = async() =>{
-       
-       
         setCoinData(dummyResponse)
         await new Promise(resolve => setTimeout(resolve, 3000)); 
      
     }
 
+    const fetchCoinRecords = async () =>{
+        setHistory(historyData)
+    }
+
     useEffect(()=>{
         
         fetchCoinData();
+        fetchCoinRecords();
     },[])
 
-    if (coinData) {
+    if (coinData && history) {
         return(
             <div className="coin">
                 <div className="coin-name">
                 <img src={coinData.image.large} alt="" />
                 <p><b>{coinData.name} ({coinData.symbol.toUpperCase()})</b></p>
+                </div>
+                <div className="coin-chart">
+                <LineChart history={history}/>
+                </div>
+                <div className="coin-info">
+                    <ul>
+                        <li>Crypto Market Rank</li>
+                        <li>{coinData.market_cap_rank}</li>
+
+                    </ul>
+                    <ul>
+                        <li>Current Price</li>
+                        <li>{currency.symbol} {coinData.market_data.current_price[currency.name]} </li>
+                        
+                    </ul>
+                    <ul>
+                        <li>Market Cap</li>
+                        <li>{currency.Symbol} {coinData.market_data.market_cap[currency.name]} </li>
+                        
+                    </ul>
+                    <ul>
+                        <li>24H High</li>
+                        <li>{currency.Symbol} {coinData.market_data.high_24h[currency.name]} </li>
+                        
+                    </ul>
                 </div>
             </div>
         )
@@ -49,6 +79,50 @@ const Coin = () =>{
 
 export default Coin
 
+const historyData = {
+    "prices": [
+      [
+        1711843200000,
+        69702.3087473573
+      ],
+      [
+        1711929600000,
+        71246.9514406015
+      ],
+      [
+        1711983682000,
+        68887.7495158568
+      ]
+    ],
+    "market_caps": [
+      [
+        1711843200000,
+        1370247487960.09
+      ],
+      [
+        1711929600000,
+        1401370211582.37
+      ],
+      [
+        1711983682000,
+        1355701979725.16
+      ]
+    ],
+    "total_volumes": [
+      [
+        1711843200000,
+        16408802301.8374
+      ],
+      [
+        1711929600000,
+        19723005998.215
+      ],
+      [
+        1711983682000,
+        30137418199.6431
+      ]
+    ]
+  }
 
 const dummyResponse = {
     "id": "bitcoin",
