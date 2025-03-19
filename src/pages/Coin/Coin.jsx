@@ -53,12 +53,12 @@ const Coin = () =>{
                     </ul>
                     <ul>
                         <li>Market Cap</li>
-                        <li>{currency.Symbol} {coinData.market_data.market_cap[currency.name]} </li>
+                        <li>{currency.symbol} {coinData.market_data.market_cap[currency.name].toLocaleString("en-US")} </li>
                         
                     </ul>
                     <ul>
                         <li>24H High</li>
-                        <li>{currency.Symbol} {coinData.market_data.high_24h[currency.name]} </li>
+                        <li>{currency.symbol} {coinData.market_data.high_24h[currency.name].toLocaleString("en-US")} </li>
                         
                     </ul>
                 </div>
